@@ -31,7 +31,8 @@ ActiveRecord::Schema.define(version: 20180407000527) do
     t.text     "image_url"
     t.boolean  "requires_event_ticket",             default: false, null: false
     t.boolean  "official",                          default: false, null: false
-    t.index ["name"], name: "index_activities_on_name", unique: true, using: :btree
+    t.jsonb    "additional_information", default: "{}",  null: false
+    t.index ["name"], name: "index_activities_on_name", using: :btree
   end
 
   create_table "authentications", force: :cascade do |t|
