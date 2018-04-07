@@ -11,12 +11,10 @@ class Activity < ActiveRecord::Base
   validates :start_time, presence: true, allow_blank: false, if: ->{ !anytime? }
   validates :end_time, presence: true, allow_blank: false, if: ->{ !anytime? }
   validates :anytime, presence: true, allow_blank: false, allow_nil: false, if: ->{ start_time.blank? && end_time.blank? }
-  validates :name, presence: true, allow_blank: false, uniqueness: true
   validates :location, presence: true, allow_blank: false
   validates :limit_of_participants, numericality: {greater_than: 0}, allow_nil: true
   validate  :time_frame_order, if: ->{ !anytime && event && start_time.present? && end_time.present? }
   validate  :during_the_event, if: ->{ !anytime && event && start_time.present? && end_time.present? }
-  validates :event, presence: true
   validate  :image_url_valid, if: ->{ image_url.present? }
 
   before_validation :clear_time_frame, if: ->{ anytime }
